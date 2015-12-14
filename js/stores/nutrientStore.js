@@ -9,7 +9,6 @@ export default Reflux.createStore({
   },
   onQuantityChange(name,nutrients,quantity){
     this.nutrientMix[name] = {nutrients,quantity};
-    console.log(this.nutrientMix)
     delete this.nutrientMix['name']
     this.trigger(constants.QUANTITY_CHANGE,this.nutrientMix);
   },
