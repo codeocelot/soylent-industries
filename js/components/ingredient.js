@@ -12,7 +12,9 @@ export default class Ingredient extends React.Component{
     // this.state.amount = 0;
   }
   componentDidMount(){
-    NutrientActions.registerIngredient(this.props.name,this.props.nutrients)
+    let nut = Object.assign({},this.props);
+    nut.quantity = this.state.amount;
+    NutrientActions.registerIngredient(nut)
 
   }
   scaleAmount = (value) =>{

@@ -6,7 +6,7 @@ import Ingredient from './components/ingredient'
 
 
 ReactDOM.render(
-  <App className="pure-g">
+  <App className="">
 
   </App>,
   document.getElementById('react-app')

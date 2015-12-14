@@ -4,7 +4,11 @@ module.exports = {
 	entry: [
 			'./js/index.js',
 			'./style/style.scss',
-			'./node_modules/purecss'
+			'./node_modules/purecss',
+			'./node_modules/font-awesome/scss/font-awesome.scss',
+			// './node_modules/elemental',
+			'./node_modules/elemental/less/elemental.less'
+
 	],
 	output:{
 		filename:'bundle.js',
@@ -35,12 +39,16 @@ module.exports = {
 				test: /\.scss$/,
 				loaders: ["style", "css", "sass"]
 			},
+			{
+				test:/\.less$/,
+				loaders: ["style","css","less"]
+			},
 			// USE THIS IF YOU'RE USING VANILLA CSS
 			{
 				test:/\.css$/,
 				loaders:["style","css"]
 			},
-			{test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+			{test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9,=,.]*)?$/,
 				loader : 'file-loader'
 			}
 		]
