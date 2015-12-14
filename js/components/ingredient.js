@@ -8,30 +8,32 @@ import NutrientStore from '../stores/nutrientStore'
 export default class Ingredient extends React.Component{
   constructor(props){
     super(props);
-
+    this.state = {amount:0}
+    // this.state.amount = 0;
   }
   componentDidMount(){
     NutrientActions.registerIngredient(this.props.name,this.props.nutrients)
-    // NutrientStore.listen(
-    //   mix=>{
-    //     mix[this.props.name] = mix[this.props.name] || {};
-    //     let val = mix[this.props.name].val || 0;
-    //     this.setState({
-    //       value : val
-    //     })
-    //   }
-    // )
+
+  }
+  scaleAmount = (value) =>{
+    return this.props.min + (this.props.max - this.props.min)*value;
+  }
+  unscaleAmount = (value) => {
+    return (value-this.props.min)/(this.props.max - this.props.min)
   }
   handleSlider = (evt,value) => {
     console.log(value);
-    NutrientActions.quantityChange(this.props.name,this.props.nutrients,value)
+    let adjAmt = this.scaleAmount(value);
+    NutrientActions.quantityChange(this.props.name,this.props.nutrients,adjAmt);
+    this.setState({amount:value})
   }
   render(){
     return(
-      <Cell size='1/3' className="cell">
-      <Paper>
+      <Cell size='1/3'>
+      <Paper className="cell">
         <span>Ingredient: {this.props.name}</span>
-        <Slider ref="slider" onChange={this.handleSlider} name="amount"/>
+        <p>Quantity: {this.scaleAmount(this.state.amount).toFixed(1)} {this.props.unit}</p>
+        <Slider ref="slider" onChange={this.handleSlider} description={`Min: ${this.props.min} Max: ${this.props.max}`} name="amount" defaultValue={this.unscaleAmount(this.props.default)}/>
       </Paper>
       </Cell>
     )

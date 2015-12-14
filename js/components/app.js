@@ -8,9 +8,30 @@ export default class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {ingredients:[
-      {name:'people', multiplier:1, nutrients:{calories:100,vitaminA:10}},
-      {name:'maltodextrin', multiplier:.5, nutrients:{calories:20,vitaminA:0}},
-      {name:'riceStarch', multiplier:0.5, nutrients:{calories:50,vitaminA:20}}
+      {
+        name:'People',
+        nutrients:{calories:100,vitaminA:10},
+        unit:'people',
+        min:0,
+        max:20,
+        default:2
+      },
+      {
+        name:'Maltodextrin',
+        nutrients:{calories:20,vitaminA:0},
+        unit:'cups',
+        min:0,
+        max:20,
+        default:5,
+      },
+      {
+        name:'Rice Starch',
+        nutrients:{calories:50,vitaminA:20},
+        unit:'cups',
+        min:0,
+        max:20,
+        default:1
+      }
     ]}
   }
   makeIngredients = () => {
