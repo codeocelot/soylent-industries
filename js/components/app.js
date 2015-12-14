@@ -8,6 +8,7 @@ import _ from 'underscore'
 import AppBar from 'material-ui/lib/app-bar'
 import LeftNav from 'material-ui/lib/left-nav'
 import MenuItem from 'material-ui/lib/menu/menu-item'
+import Checkbox from 'material-ui/lib/checkbox'
 
 export default class App extends React.Component{
   constructor(props){
@@ -63,26 +64,23 @@ export default class App extends React.Component{
       return(<Nutrient name={n}/>)
     })
   }
-  _enableIngredient = (evt,val) => {
-    console.log(evt,val)
+  _enableIngredient = (evt,val,name) => {
+    let ing = _.findWhere(this.state.ingredients,{name});
+    ing.isDisabled = !val;
+    // this.state.ingredients[name].isDisabled = val;
+    this.setState(this.state)
   }
   _makeMenu = () => {
     return this.state.ingredients.map((ingred,i)=>{
       console.log('menu item: ',i)
       return(
-        <MenuItem index={i} onItemTouchTap={this._enableIngredient}>
-          <input type="checkbox"/>
-          {ingred.name}
-        </MenuItem>)
-      // if(ingred.isDisabled){
-      //   return(<MenuItem index={i}>{ingred.name}</MenuItem>)
-      // } else {
-      //   return(
-      //     <MenuItem index={i} checked={true}>
-      //       <input type="checkbox" onClick={this._enableIngredient} value={ingred.isDisabled}>{ingred.name}</input>
-      //
-      //     </MenuItem>)
-      // }
+        <Checkbox
+          name={ingred.name}
+          label={ingred.name}
+          defaultChecked={!ingred.isDisabled}
+          onCheck={(evt,val)=>{this._enableIngredient(evt,val,ingred.name)}}
+          />
+      )
     })
   }
   _openSidebar = (evt) => {
@@ -98,11 +96,9 @@ export default class App extends React.Component{
     return(
       <div>
         <AppBar title="Soylent Industries" onLeftIconButtonTouchTap={this._openSidebar}/>
-        <Cell size="1">
-          <LeftNav ref="leftNav" docked={false}>
-            {menu}
-          </LeftNav>
-        </Cell>
+        <LeftNav ref="leftNav" docked={false}>
+          {menu}
+        </LeftNav>
         <Cell size="1">
 
           {nutrients}

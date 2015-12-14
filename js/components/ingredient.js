@@ -32,7 +32,7 @@ export default class Ingredient extends React.Component{
       <Paper className="cell">
         <span>Ingredient: {this.props.name}</span>
         <p>Quantity: {this.state.amount.toFixed(1)} {this.props.unit}</p>
-        <Slider ref="slider" onChange={this.handleSlider} description={`Min: ${this.props.min} Max: ${this.props.max}`} name="amount" defaultValue={this.unscaleAmount(this.props.default)}/>
+        <Slider onChange={this.handleSlider} description={`Min: ${this.props.min} Max: ${this.props.max}`} name={this.props.name} value={this.unscaleAmount(this.state.amount)} />
       </Paper>
       </Cell>
     )
