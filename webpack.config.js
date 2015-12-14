@@ -3,7 +3,8 @@ module.exports = {
 	devtool:'eval',
 	entry: [
 			'./js/index.js',
-			'./style/style.scss'
+			'./style/style.scss',
+			'./node_modules/purecss'
 	],
 	output:{
 		filename:'bundle.js',
@@ -35,10 +36,10 @@ module.exports = {
 				loaders: ["style", "css", "sass"]
 			},
 			// USE THIS IF YOU'RE USING VANILLA CSS
-			// {
-			// 	test:/\.css$/,
-			// 	loaders:["style","css"]
-			// },
+			{
+				test:/\.css$/,
+				loaders:["style","css"]
+			},
 			{test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
 				loader : 'file-loader'
 			}
