@@ -14,7 +14,7 @@ export default class Nutrient extends React.Component{
   componentDidMount(){
     NutrientStore.listen((type,data) =>{
       if(type===constants.QUANTITY_CHANGE){
-        var vals = _.toArray(data).map(x=>{return x.nutrients[this.props.name] * x.quantity})
+        var vals = _.toArray(data).map(x=>{return (x.nutrients[this.props.name] * x.quantity) || 0 })
         let v = vals.reduce((a,b)=>{return a+b},0)
         console.log(this.props.name,v);
         this.setState({amount:v})

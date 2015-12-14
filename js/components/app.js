@@ -14,15 +14,6 @@ import {Container,Table} from 'elemental'
 
 import FontAwesome from 'react-fontawesome'
 
-// import {Table,TableBody,TableFooter,TableHeader,TableHeaderColumn,TableRow,TableRowColumn} from 'material-ui/lib/table'
-// import Table from 'material-ui/lib/table/table'
-// import TableBody from 'material-ui/lib/table/table-body'
-// import Card from 'material-ui/lib/card/card'
-// import CardActions from 'material-ui/lib/card/card-actions'
-// import CardTitle from 'material-ui/lib/card/card-title'
-// import CardText from 'material-ui/lib/card/card-text'
-// import CardExpandable from 'material-ui/lib/card/card-expandable'
-
 export default class App extends React.Component{
   constructor(props){
     super(props)
@@ -32,7 +23,7 @@ export default class App extends React.Component{
       ingredients:[
         {
           name:'People',
-          nutrients:{calories:100,vitaminA:10,protein:40},
+          nutrients:{calories:100,vitaminA:10,protein:40,sugar:20},
           unit:'people',
           min:0,
           max:20,
@@ -60,19 +51,29 @@ export default class App extends React.Component{
 
         },
         {
-          name:'Oat Powder',
-          nutrients:{calories:45,vitaminA:34,protein:9},
-          units:'grams',
+          name:'Oat Flour',
+          nutrients:{calories:3.4,fatCalories:0.63,satCalories:0.135,protein:0.15,carbohydrates:0.15,fibre:0,solFibre:0,sugar:42.57,vitaminA:34,protein:9},
+          unit:'grams',
           min:0,
           max:200,
-          default:100,
+          default:70,
           isDisabled:false,
-        }
+        },
+        // {
+        //   name:"Brown Rice Protein",
+        //   nutrients:{protein:}
+        // }
       ],
       nutrients:[
         {name:'calories',recommended:2000,units:'kcal'},
         {name:'vitaminA',recommended:400,units:'mg'},
-        {name:'protein',recommended:500,units:'g'}
+        {name:'protein',recommended:500,units:'g'},
+        {name:'fatCalories',recommended:700,units:'kcal'},
+        {name:'satCalories',recommended:200,units:'kcal'},
+        {name:'carbohydrates',recommended:500,units:'g'},
+        {name:'fibre',recommended:50,units:'g'},
+        {name:'solFibre',recommended:30,units:'g'},
+        {name:'sugar',recommended:0,units:'g'}
       ]
     }
   }
@@ -112,17 +113,7 @@ export default class App extends React.Component{
     let ingreds = this.makeIngredients();
     let nutrients = this.makeNutrients();
     let menu = this._makeMenu();
-    // let tableOptions = {
-    //   fixedHeader: true,
-    //   fixedFooter: true,
-    //   stripedRows: false,
-    //   showRowHover: true,
-    //   selectable: true,
-    //   multiSelectable: false,
-    //   enableSelectAll: false,
-    //   deselectOnClickaway: true,
-    //   height: '300px',
-    // };
+
     console.log('refs are: ', this.refs)
     return(
       <div>
