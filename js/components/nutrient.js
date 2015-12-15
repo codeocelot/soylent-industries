@@ -5,6 +5,7 @@ import constants from '../constants/constants'
 import _ from 'underscore'
 import NutrientStore from '../stores/nutrientStore'
 import Case from 'case'
+import FontAwesome from 'react-fontawesome'
 
 export default class Nutrient extends React.Component{
   constructor(props){
@@ -23,11 +24,19 @@ export default class Nutrient extends React.Component{
     })
   }
   render(){
+    let isMet = this.state.amount >= this.props.recommended;
     return(
         <tr>
           <td>{Case.title(this.props.name)}</td>
           <td>{Math.round(this.state.amount)} {this.props.units}</td>
-          <td>{this.props.recommended} {this.props.units}</td>
+          <td>
+            {this.props.recommended} {this.props.units}
+             {isMet?
+               <FontAwesome name='check' style={{color:'green'}}/>
+              :
+               <FontAwesome name='times' style={{color:'red'}}/>
+            }
+          </td>
         </tr>
 
     )

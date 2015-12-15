@@ -14,6 +14,13 @@ import {Container,Table} from 'elemental'
 
 import FontAwesome from 'react-fontawesome'
 
+import IngredientList from './ingredientList'
+
+
+const MyRawTheme = require('../themes/theme');
+const ThemeManager = require('material-ui/lib/styles/theme-manager');
+// const ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
+
 export default class App extends React.Component{
   constructor(props){
     super(props)
@@ -73,12 +80,20 @@ export default class App extends React.Component{
       ]
     }
   }
+
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(MyRawTheme),
+    };
+  }
+
   makeIngredients = () => {
-    return this.state.ingredients.filter(x=>{return !x.isDisabled}).map(indegredient=>{return(<Ingredient {...indegredient } />)})
+    return this.state.ingredients.filter(x=>{return !x.isDisabled}).map((indegredient,i)=>{return(<Ingredient {...indegredient } key={i} />)})
   }
   makeNutrients = () =>{
-    return this.state.nutrients.map(n=>{
-      return(<Nutrient {...n}/>)
+    return this.state.nutrients.map((n,i)=>{
+      return(<Nutrient {...n} key={i}/>)
     })
   }
   _enableIngredient = (evt,val,name) => {
@@ -94,6 +109,7 @@ export default class App extends React.Component{
         <Checkbox
           name={ingred.name}
           label={ingred.name}
+          key={i}
           defaultChecked={!ingred.isDisabled}
           onCheck={(evt,val)=>{this._enableIngredient(evt,val,ingred.name)}}
           />
@@ -102,7 +118,8 @@ export default class App extends React.Component{
   }
   _openSidebar = (evt) => {
     console.log('what',evt)
-    this.refs.leftNav.toggle();
+    // this.refs.leftNav.toggle();
+    this.refs.ingredientList.toggle();
   }
 
   render = () => {
@@ -113,10 +130,11 @@ export default class App extends React.Component{
     console.log('refs are: ', this.refs)
     return(
       <div>
-        <AppBar title={['Soylent Industries',<FontAwesome name='rocket'/>]} onLeftIconButtonTouchTap={this._openSidebar} style={{textAlign:'center'}} />
+        <AppBar title={['Soylent Industries ',<FontAwesome name='rocket'/>]} onLeftIconButtonTouchTap={this._openSidebar} key="icon" style={{textAlign:'center'}} />
         <LeftNav ref="leftNav" docked={false}>
           {menu}
         </LeftNav>
+        <IngredientList ref="ingredientList" baseURL="http://localhost:3000"/>
         <Container>
           <Table style={{width:"100%"}}>
             <colgroup>
@@ -143,3 +161,7 @@ export default class App extends React.Component{
     )
   }
 }
+
+App.childContextTypes = {
+    muiTheme: React.PropTypes.object,
+  }

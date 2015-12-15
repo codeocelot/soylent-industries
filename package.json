@@ -27,6 +27,7 @@
     "file-loader": "^0.8.5",
     "font-awesome": "^4.5.0",
     "jest": "^0.1.40",
+    "jquery": "^2.1.4",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "material-ui": "^0.13.4",
