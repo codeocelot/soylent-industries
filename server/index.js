@@ -11,7 +11,6 @@ function getIngredients(name,cb){
       cb(err,null);
     }
     client.query(`select * from food_des where long_desc = '${name}' LIMIT 1`,(err,foodRes)=>{
-      // console.log(food,name);
       let food = foodRes.rows[0]
       debugger;
       client.query(`select * from nut_dat JOIN nutr_def on nutr_def.nutr_no = nut_dat.nutro_no WHERE nut_dat.ndb_no = '${food.ndb_no}'`,(err,nutrients)=>{
@@ -19,21 +18,6 @@ function getIngredients(name,cb){
         cb(null,food);
       })
     });
-
-    // client.query(`select nut_dat.ndb_no, nut_dat.nutro_no, long_desc, nutrdesc, nut_dat.nutr_val from food_des JOIN nut_dat ON nut_dat.ndb_no = food_des.ndb_no JOIN nutr_def ON nutr_def.nutr_no = nut_dat.nutro_no WHERE long_desc = '${name}'`,(err,ingredient)=>{
-    //   debugger;
-    //   if(err){
-    //     cb(err,null);
-    //   }
-    //   else{
-    //     val = ingredient.rows;
-    //     val = val.map( el => { el.key = el.ndb_no + el.nutro_no; return el; });
-    //     val = _.groupBy(val.rows,i=>i.ndb_no);
-    //
-    //
-    //     cb(null,ingredient);
-    //   }
-    // })
   })
 }
 
