@@ -21,24 +21,32 @@ function getIngredients(name,cb){
   })
 }
 
-app.use((req,res,next)=>{res.set('Access-Control-Allow-Origin',"*");next();})
-app.use((req,res,next)=>{console.log(`Request: ${req.path} ${JSON.stringify(req.params)}`);next();})
-// app.use((req,res,next)=>{res.params=res.params.map(p=>decodeURI(p))})
+function getIngredientNames(cb){
+  pg.connect(conString,(err,client,done)=>{
+    if(err) return cb(err,null);
+    client.query(`select long_desc from food_des`,(err,foodRes)=>{
+      let foods = foodRes.rows.map(f=>{return{'name':f.long_desc}})
+      cb(null,foods)
+    })
 
-function decodeParams(req,res,next){
-  req.params = _.map(req.params,p=>decodeURI(p));
-  next();
+  })
 }
 
-app.get('/ingredient/:id',(req,res)=>{
-  getIngredients(req.params.id || null,(err,result)=>{
-    if(err){
+app.use((req,res,next)=>{res.set('Access-Control-Allow-Origin',"*");next();})
+app.use((req,res,next)=>{console.log(`Request: ${req.path} ${JSON.stringify(req.params)}`);next();})
 
-      res.send(err.toString()).status(500);
-    }
+app.get('/ingredient/all',(req,res)=>{
+  getIngredientNames((err,ingreds)=>res.send(err||ingreds).status(err?500:200))
+})
+
+app.get('/ingredient/:name',(req,res)=>{
+  getIngredients(req.params.name || null,(err,result)=>{
+    if(err) res.send(err.toString()).status(500);
     else res.send(result).status(200);
   })
 });
+
+
 
 var server = app.listen(process.env.port || 3000, ()=>{
   var host = server.address().address;
