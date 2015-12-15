@@ -16,6 +16,7 @@ import FontAwesome from 'react-fontawesome'
 
 import IngredientList from './ingredientList'
 
+import $ from 'jquery'
 
 const MyRawTheme = require('../themes/theme');
 const ThemeManager = require('material-ui/lib/styles/theme-manager');

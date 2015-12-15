@@ -25,7 +25,7 @@ function getIngredientNames(cb){
   pg.connect(conString,(err,client,done)=>{
     if(err) return cb(err,null);
     client.query(`select long_desc from food_des`,(err,foodRes)=>{
-      let foods = foodRes.rows.map(f=>{return{'name':f.long_desc}})
+      let foods = foodRes.rows.map(f=>{return f.long_desc})
       cb(null,foods)
     })
 

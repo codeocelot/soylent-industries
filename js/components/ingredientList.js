@@ -8,15 +8,22 @@ export default class IngredientList extends React.Component{
     this.state = {ingredients:[
       {
         name:'People',
-        nutrients:{calories:100,vitaminA:10,protein:40,sugar:20},
-        unit:'people',
-        min:0,
-        max:20,
-        default:2,
-        isDisabled:false,
+        // nutrients:{calories:100,vitaminA:10,protein:40,sugar:20},
+        // unit:'people',
+        // min:0,
+        // max:20,
+        // default:2,
+        // isDisabled:false,
       },
+      {name:'Oat Powder'}
     ]}
-
+    // $.get(this.props.baseURL+'/ingredient/all',data=>{
+    //   debugger;
+    //   console.log('new ingredients',data);
+    //   data=data.map(el=>{return {name:el}})
+    //   // data = data.slice(0,100);
+    //   // debugger;
+    //   this.setState({ingredients:data}) })
   }
   toggle = () => {
     this.refs.leftNav.toggle();
@@ -28,13 +35,13 @@ export default class IngredientList extends React.Component{
   }
   render = () => {
     let ingreds = this.state.ingredients.map((ingred,i)=>{
-      ingred.key = i;
+      // ingred.key = i;
       console.log('menu item: ',i)
       return(
         <Checkbox
         name={ingred.name}
         label={ingred.name}
-        key={ingred.key}
+        key={i}
         defaultChecked={!ingred.isDisabled}
         onCheck={(evt,val)=>{this._enableIngredient(evt,val,ingred.name)}}
         />
@@ -51,7 +58,6 @@ export default class IngredientList extends React.Component{
 IngredientList.propTypes = {
   baseURL: (props,propName,componentName)=>{
     let propValue = props[propName]
-    console.log('ingredient list prop value',propValue)
     if(/http/.test(propValue) && propValue[propValue.length-1]!=='/'){
       return null;
     }
