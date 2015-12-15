@@ -32,7 +32,7 @@ export default class App extends React.Component{
         },
         {
           name:'Maltodextrin',
-          nutrients:{calories:20,vitaminA:0,protein:7},
+          nutrients:{calories:20,vitaminA:0,protein:7,sugar:5},
           unit:'cups',
           min:0,
           max:20,
@@ -59,10 +59,6 @@ export default class App extends React.Component{
           default:70,
           isDisabled:false,
         },
-        // {
-        //   name:"Brown Rice Protein",
-        //   nutrients:{protein:}
-        // }
       ],
       nutrients:[
         {name:'calories',recommended:2000,units:'kcal'},
@@ -117,7 +113,7 @@ export default class App extends React.Component{
     console.log('refs are: ', this.refs)
     return(
       <div>
-        <AppBar title={['Soylent Industries',<FontAwesome name='rocket'/>]} onLeftIconButtonTouchTap={this._openSidebar} />
+        <AppBar title={['Soylent Industries',<FontAwesome name='rocket'/>]} onLeftIconButtonTouchTap={this._openSidebar} style={{textAlign:'center'}} />
         <LeftNav ref="leftNav" docked={false}>
           {menu}
         </LeftNav>
