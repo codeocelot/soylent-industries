@@ -1,15 +1,5 @@
-# react-reflux-webpack-starter
-A no-frills get started now package for those interested in React, Reflux, ES6 & Webpack.
-
-## What this is:
-It's a demonstration of
-
-1. Using webpack to compile ES6 JavaScript to ES5 JavaScript to work on run-of-the-mill browsers
-2. Getting started with basic React components using ES6 syntax.
-3. Getting started using Reflux Stores & Actions.
-
-## What this is not:
-A substitute for reading the docs.  Find them [here](https://webpack.github.io/docs/), [here](https://facebook.github.io/react/docs/getting-started.html), and [here](https://github.com/reflux/refluxjs)
+# Engineer your diet.
+Easily track your daily intake of 150 nutrients critical to your body's wellbeing.  
 
 ## Getting Started:
 1. Make sure you've got nodejs installed.  You can easily find guides elsewhere to do this.
