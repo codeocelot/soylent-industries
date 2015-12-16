@@ -1,29 +1,19 @@
 import React from 'react'
 import $ from 'jquery'
 import {Checkbox, LeftNav} from 'material-ui'
+import IngredientActions from '../actions/ingredientActions'
+import IngredientStore from '../stores/ingredientStore'
+import constants from '../constants/constants'
 
 export default class IngredientList extends React.Component{
   constructor(props){
     super(props);
-    this.state = {ingredients:[
-      {
-        name:'People',
-        // nutrients:{calories:100,vitaminA:10,protein:40,sugar:20},
-        // unit:'people',
-        // min:0,
-        // max:20,
-        // default:2,
-        // isDisabled:false,
-      },
-      {name:'Oat Powder'}
-    ]}
-    // $.get(this.props.baseURL+'/ingredient/all',data=>{
-    //   debugger;
-    //   console.log('new ingredients',data);
-    //   data=data.map(el=>{return {name:el}})
-    //   // data = data.slice(0,100);
-    //   // debugger;
-    //   this.setState({ingredients:data}) })
+    this.state = {ingredients:[]}
+    IngredientStore.listen((type,ingredients)=>{
+      if(type===constants.ALL_INGREDIENTS){
+        this.setState({ingredients})
+      }
+    })
   }
   toggle = () => {
     this.refs.leftNav.toggle();
@@ -33,22 +23,30 @@ export default class IngredientList extends React.Component{
       return $.get(this.props.baseURL + '/ingredient')
     }
   }
+  _enableIngredient = (evt,val,name) =>{
+    IngredientActions.addIngredient(name);
+  }
+  // _enableIngredient = (evt,val,name) => {
+  //   let ing = _.findWhere(this.state.ingredients,{name});
+  //   ing.isDisabled = !val;
+  //   // this.state.ingredients[name].isDisabled = val;
+  //   this.setState(this.state)
+  // }
   render = () => {
-    let ingreds = this.state.ingredients.map((ingred,i)=>{
+    let ingreds = this.state.ingredients.slice(0,100).map((ingred,i)=>{
       // ingred.key = i;
-      console.log('menu item: ',i)
       return(
         <Checkbox
-        name={ingred.name}
-        label={ingred.name}
+        name={ingred}
+        label={ingred}
         key={i}
-        defaultChecked={!ingred.isDisabled}
-        onCheck={(evt,val)=>{this._enableIngredient(evt,val,ingred.name)}}
+        defaultChecked={false}
+        onCheck={(evt,val)=>{this._enableIngredient(evt,val,ingred)}}
         />
       )
     })
     return(
-      <LeftNav ref="leftNav" docked={false}>
+      <LeftNav ref="leftNav" docked={false} style={{overflowY:'scroll'}}>
       {ingreds}
       </LeftNav>
     )

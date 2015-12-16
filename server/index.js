@@ -12,10 +12,10 @@ function getIngredients(name,cb){
     }
     client.query(`select * from food_des where long_desc = '${name}' LIMIT 1`,(err,foodRes)=>{
       let food = foodRes.rows[0]
-      debugger;
       client.query(`select * from nut_dat JOIN nutr_def on nutr_def.nutr_no = nut_dat.nutro_no WHERE nut_dat.ndb_no = '${food.ndb_no}'`,(err,nutrients)=>{
         food.nutrients = nutrients.rows;
         cb(null,food);
+        done();
       })
     });
   })
@@ -27,6 +27,7 @@ function getIngredientNames(cb){
     client.query(`select long_desc from food_des`,(err,foodRes)=>{
       let foods = foodRes.rows.map(f=>{return f.long_desc})
       cb(null,foods)
+      done();
     })
 
   })

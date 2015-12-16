@@ -1,8 +1,11 @@
 import React from 'react'
 import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
+
 import Ingredient from './ingredient'
 import Nutrient from './nutrient'
+import ActiveIngredientList from './activeIngredientList'
+
 import {Cell} from 'react-pure'
 import _ from 'underscore'
 import AppBar from 'material-ui/lib/app-bar'
@@ -17,6 +20,9 @@ import FontAwesome from 'react-fontawesome'
 import IngredientList from './ingredientList'
 
 import $ from 'jquery'
+import constants from '../constants/constants'
+
+import IngredientStore from '../stores/ingredientStore'
 
 const MyRawTheme = require('../themes/theme');
 const ThemeManager = require('material-ui/lib/styles/theme-manager');
@@ -79,7 +85,8 @@ export default class App extends React.Component{
         {name:'solFibre',recommended:30,units:'g'},
         {name:'sugar',recommended:0,units:'g'}
       ]
-    }
+    };
+
   }
 
 
@@ -97,12 +104,7 @@ export default class App extends React.Component{
       return(<Nutrient {...n} key={i}/>)
     })
   }
-  _enableIngredient = (evt,val,name) => {
-    let ing = _.findWhere(this.state.ingredients,{name});
-    ing.isDisabled = !val;
-    // this.state.ingredients[name].isDisabled = val;
-    this.setState(this.state)
-  }
+
   _makeMenu = () => {
     return this.state.ingredients.map((ingred,i)=>{
       console.log('menu item: ',i)
@@ -155,7 +157,8 @@ export default class App extends React.Component{
             </tbody>
           </Table>
           <Cell size="1">
-            {ingreds}
+            {/*{ingreds}*/}
+            <ActiveIngredientList/>
           </Cell>
         </Container>
       </div>
