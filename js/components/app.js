@@ -134,7 +134,7 @@ export default class App extends React.Component{
     console.log('refs are: ', this.refs)
     return(
       <div>
-        <AppBar title={['Soylent Industries ',<FontAwesome name='rocket'/>]} onLeftIconButtonTouchTap={this._openSidebar} key="icon" style={{textAlign:'center'}} />
+        <AppBar title={['Soylent Industries ',<FontAwesome name='rocket'/>]} onLeftIconButtonTouchTap={this._openSidebar} key="icon" style={{textAlign:'center',position:'fixed'}} />
         <LeftNav ref="leftNav" docked={false}>
           {menu}
         </LeftNav>

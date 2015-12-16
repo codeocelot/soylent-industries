@@ -33,7 +33,7 @@ export default class Ingredient extends React.Component{
       <Paper className="cell">
         <span>Ingredient: {this.props.name}</span>
         <p>Quantity: {this.state.amount.toFixed(1)} {this.props.unit}</p>
-        <Slider onChange={this.handleSlider} name={this.props.name} value={this.state.amount} />
+        <Slider onChange={this.handleSlider} name={this.props.name} />
       </Paper>
 
     )
