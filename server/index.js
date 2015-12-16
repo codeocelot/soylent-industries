@@ -21,6 +21,16 @@ function getIngredients(name,cb){
   })
 }
 
+function getNutrients(cb){
+  pg.connect(conString,(err,client,done)=>{
+    if(err) return cb(err,null);
+    client.query(`select * from nutr_def`,(err,nutrientRecords)=>{
+      cb(null,nutrientRecords.rows);
+      done();
+    })
+  })
+}
+
 function getIngredientNames(cb){
   pg.connect(conString,(err,client,done)=>{
     if(err) return cb(err,null);
@@ -46,6 +56,13 @@ app.get('/ingredient/:name',(req,res)=>{
     else res.send(result).status(200);
   })
 });
+
+app.get('/nutrient/all',(req,res)=>{
+  getNutrients((err,nutrients)=>{
+    if(err) res.send('error').status(500);
+    else res.send(nutrients).status(200);
+  })
+})
 
 
 

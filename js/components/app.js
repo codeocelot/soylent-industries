@@ -5,6 +5,7 @@ injectTapEventPlugin();
 import Ingredient from './ingredient'
 import Nutrient from './nutrient'
 import ActiveIngredientList from './activeIngredientList'
+import NutrientList from './nutrientList.js'
 
 import {Cell} from 'react-pure'
 import _ from 'underscore'
@@ -75,8 +76,8 @@ export default class App extends React.Component{
         },
       ],
       nutrients:[
-        {name:'calories',recommended:2000,units:'kcal'},
-        {name:'vitaminA',recommended:400,units:'mg'},
+        {name:'Energy',recommended:2000,units:'kcal'},
+        {name:'Vitamin A, IU',recommended:400,units:'mg'},
         {name:'protein',recommended:500,units:'g'},
         {name:'fatCalories',recommended:700,units:'kcal'},
         {name:'satCalories',recommended:200,units:'kcal'},
@@ -139,27 +140,10 @@ export default class App extends React.Component{
         </LeftNav>
         <IngredientList ref="ingredientList" baseURL="http://localhost:3000"/>
         <Container>
-          <Table style={{width:"100%"}}>
-            <colgroup>
-              <col width="70%" />
-              <col width=""/>
-              <col width="15%"/>
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Nutrient</th>
-                <th>Quantity</th>
-                <th>Recommended Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {nutrients}
-            </tbody>
-          </Table>
-          <Cell size="1">
+
+          <NutrientList/>
             {/*{ingreds}*/}
             <ActiveIngredientList/>
-          </Cell>
         </Container>
       </div>
     )

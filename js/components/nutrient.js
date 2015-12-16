@@ -14,8 +14,15 @@ export default class Nutrient extends React.Component{
   }
   componentDidMount(){
     NutrientStore.listen((type,data) =>{
+      debugger;
       if(type===constants.QUANTITY_CHANGE){
-        var vals = _.toArray(data).map(x=>{return (x.nutrients[this.props.name] * x.quantity) || 0 })
+        var vals = _.toArray(data).map(x=>{
+          var nutr = _.findWhere(x.nutrients,{nutrdesc:this.props.nutrdesc});
+          if(!nutr || !nutr.nutr_val) return 0;
+          return +nutr.nutr_val * x.quantity || 0;
+          // return (x.nutrients[this.props.name] * x.quantity) || 0
+        })
+
         let v = vals.reduce((a,b)=>{return a+b},0)
         this.setState({amount:v})
       }
@@ -24,9 +31,10 @@ export default class Nutrient extends React.Component{
   }
   render(){
     let isMet = this.state.amount >= this.props.recommended;
+    debugger;
     return(
         <tr>
-          <td>{Case.title(this.props.name)}</td>
+          <td>{Case.title(this.props.nutrdesc)}</td>
           <td>{Math.round(this.state.amount)} {this.props.units}</td>
           <td>
             {this.props.recommended} {this.props.units}

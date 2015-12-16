@@ -7,6 +7,13 @@ export default Reflux.createStore({
   init(){
     this.nutrientMix = {};
     this.listenToMany(NutrientActions);
+    this.getNutrientList();
+  },
+  getNutrientList(){
+    $.get('http://localhost:3000/nutrient/all',nutrients=>{
+      this.nutrients = nutrients;
+      this.trigger(constants.ALL_NUTRIENTS,this.nutrients);
+    })
   },
   onQuantityChange(name,nutrients,quantity){
     this.nutrientMix[name] = {nutrients,quantity};

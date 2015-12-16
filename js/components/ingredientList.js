@@ -10,6 +10,10 @@ export default class IngredientList extends React.Component{
     super(props);
     this.state = {ingredients:[]}
     IngredientStore.listen((type,ingredients)=>{
+      switch(type){
+        case constants.ALL_INGREDIENTS:
+          this.setState({ingredients})
+      }
       if(type===constants.ALL_INGREDIENTS){
         this.setState({ingredients})
       }
@@ -24,7 +28,9 @@ export default class IngredientList extends React.Component{
     }
   }
   _enableIngredient = (evt,val,name) =>{
-    IngredientActions.addIngredient(name);
+    if(val)
+      IngredientActions.addIngredient(name);
+    else IngredientActions.removeIngredient(name);
   }
   // _enableIngredient = (evt,val,name) => {
   //   let ing = _.findWhere(this.state.ingredients,{name});
